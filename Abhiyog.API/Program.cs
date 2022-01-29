@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Abhiyog.API
@@ -13,8 +14,8 @@ namespace Abhiyog.API
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build().Run();
-            var 
+          CreateHostBuilder(args).Build().Run();
+          
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,6 +23,7 @@ namespace Abhiyog.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                     
                 });
         
     }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +29,21 @@ namespace Abhiyog.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //Adding Fluent validation
             services.AddControllers()
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddJsonOptions(opt =>
                 {
                     opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
                 });
-            services.AddDbContext<OurDB>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
+            // Adding Db Connections - TODO
+            services.AddDbContext<DBCONTEXTCLASS>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("Database")));
+            //Adding Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
 
         }
 
