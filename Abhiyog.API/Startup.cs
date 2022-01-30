@@ -29,8 +29,6 @@ namespace Abhiyog.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            var key = "testkey";
-            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key));
             //Adding Fluent validation
             services.AddControllers()
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>())
@@ -39,8 +37,8 @@ namespace Abhiyog.API
                     opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
                 });
             // Adding Db Connections - TODO
-            //services.AddDbContext<DBCONTEXTCLASS>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("Database")));
+            services.AddDbContext<DBCONTEXTCLASS>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("Database")));
             //Adding Swagger
             services.AddSwaggerGen(c =>
             {
@@ -67,7 +65,6 @@ namespace Abhiyog.API
                 options.RoutePrefix = string.Empty;
             });
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
