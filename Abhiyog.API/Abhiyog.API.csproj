@@ -22,9 +22,5 @@
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Abhiyog.Data\Abhiyog.Data.csproj" />
-  </ItemGroup>
-
 
 </Project>
